@@ -4,32 +4,32 @@
   const calculo1 = reactive( {
     ValorPrimario: '',
     Valorsecundario: '',
-    Operacoes: '',
-    ResultadoDaOperacao: '',
+    operacoes: '',
+    resultadoDaOperacao: 0,
   })
-
-  const Calculo = () => {
+  
+  const Calculo = () => { 
     if(calculo1.ValorPrimario && calculo1.Valorsecundario){
-
-
-if ( calculo1.Operacoes === 'somar'){
-  calculo1.ResultadoDaOperacao =  Number(calculo1.ValorPrimario) + Number(calculo1.Valorsecundario)
+      
+if ( calculo1.operacoes === 'soma'){
+  calculo1.resultadoDaOperacao =  Number(calculo1.ValorPrimario) + Number(calculo1.Valorsecundario)
+  console.log(`calculo1`)
   }
 
-  if ( calculo1.Operacoes === 'subtrair'){
-    calculo1.ResultadoDaOperacao =  Number(calculo1.ValorPrimario) - Number(calculo1.Valorsecundario)
+  if ( calculo1.operacoes === 'subtracao'){
+    calculo1.resultadoDaOperacao =  Number(calculo1.ValorPrimario) - Number(calculo1.Valorsecundario)
   }
 
   
-  if ( calculo1.Operacoes === 'multiplicar'){
-    calculo1.ResultadoDaOperacao =  Number(calculo1.ValorPrimario) * Number(calculo1.Valorsecundario)
+  if ( calculo1.operacoes === 'multiplicacao'){
+    calculo1.resultadoDaOperacao =  Number(calculo1.ValorPrimario) * Number(calculo1.Valorsecundario)
   }
   
 
-  if ( calculo1.Operacoes === 'dividir'){
-    calculo1.ResultadoDaOperacao =  Number(calculo1.ValorPrimario) / Number(calculo1.Valorsecundario)
+  if ( calculo1.operacoes === 'divisao'){
+    calculo1.resultadoDaOperacao =  Number(calculo1.ValorPrimario) / Number(calculo1.Valorsecundario)
   }
-  console.log(calculo1.Operacoes)
+return calculo1.resultadoDaOperacao
 }
 }
 
@@ -43,9 +43,11 @@ if ( calculo1.Operacoes === 'somar'){
     Calculo()
   }
 
-  const Operacao = (event) => {
-    calculo1.ValorDaOperacao = event.target.value
+  const operacao = (event) => {
+    calculo1.operacoes = event.target.value
+    Calculo()
   }
+  console.log(calculo1)
 
 
 </script>
@@ -58,14 +60,15 @@ if ( calculo1.Operacoes === 'somar'){
     <input @change="Valor1" type="number"> <br />
     <span>Segundo Número</span> <br />
     <input @change="Valor2" type="number"> <br />
-    <select @change="Operacao" name="select">
+    <select @change="operacao" name="select">
+  <option disabled selected value="">Selecione uma operação</option>
   <option value="soma">Soma</option>
   <option value="subtracao">Subtração</option>
   <option value="divisao">Divisão</option>
   <option value="multiplicacao">Multiplicação</option>
 </select>
     <br />
-    O resultado é {{ calculo1.ResultadoDaOperacao }}
+    O resultado é {{ Calculo() }}
   </section>
 </div>
 </template>
